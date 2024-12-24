@@ -46,7 +46,7 @@ It aims to ensure data security, improve communication, and support academic pla
 
  -**Student Performance Trends**: Track and analyze grades to identify patterns in student achievement.
 
-**Enrollment Patterns**: Monitor course enrollment to understand popular and under-enrolled courses.
+ -**Enrollment Patterns**: Monitor course enrollment to understand popular and under-enrolled courses.
 
 -**Attendance and Participation**: Gauge student engagement through attendance records and participation metrics.
 
