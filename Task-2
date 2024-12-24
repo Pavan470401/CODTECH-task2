@@ -1,0 +1,89 @@
+-- in this task to create student database management,first we need to create a databse
+called student_management--
+
+CREATE DATABASE student_management;
+
+--for using the database we use below command--
+
+USE student_management;
+
+--in student_management database, we created a table named students consists of different 
+colomn headings and their datatypes with constraints like student_id int etc.--
+
+CREATE TABLE students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    birthdate DATE,
+    email VARCHAR(255),
+    phone_number VARCHAR(15)
+);
+
+--we create another table as we know that names mentioned in the task named members consists of different 
+colomn headings and their datatypes with constraints like course_id int etc.--
+
+CREATE TABLE courses (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(255) NOT NULL,
+    course_description TEXT
+);
+
+--at final we create table named enrollments in the database which consisting of
+colomn headings and their datatypes with constraints like enrollment_id int etc.--
+
+CREATE TABLE enrollments (
+    enrollment_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    course_id INT,
+    grade CHAR(2),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+-- after creating the tables we need to insert the data into empty tables to store the data--
+--for inserting data we use below query syntax to insert data in a above created tables--
+
+INSERT INTO students (name, birthdate, email, phone_number)
+VALUES ('Alice Johnson', '2000-05-14', 'alice.johnson@example.com', '123-456-7890'),
+       ('Bob Smith', '1999-08-22', 'bob.smith@example.com', '098-765-4321');
+INSERT INTO courses (course_name, course_description)
+VALUES ('Mathematics', 'Study of numbers, shapes, and patterns'),
+       ('History', 'Study of past events');
+INSERT INTO enrollments (student_id, course_id, grade)
+VALUES (1, 1, 'A'),
+       (2 ,2, 'B'),
+       (2, 1, 'B');
+
+--for updating the data in tables we use below syntax--
+
+drop table courses;
+UPDATE students SET email = 'alice.newemail@example.com' WHERE student_id = 1;
+UPDATE courses SET course_description = 'Advanced study of past events' WHERE course_id = 2;
+UPDATE enrollments SET grade = 'A' WHERE enrollment_id = 2;
+
+--for deleting the data we use below syntax--
+
+DELETE FROM students WHERE student_id = 1;
+DELETE FROM courses WHERE course_id = 1;
+DELETE FROM enrollments WHERE student_id = 1;
+DELETE FROM enrollments WHERE course_id = 1;
+
+--for getting the data that is stored in tables we use below syntax--
+
+set sql_safe_updates=0;
+SELECT * FROM students;
+SELECT * FROM courses;
+SELECT * FROM enrollments;
+
+--for getting the students enrolled by a specific course we use below syntax--
+
+SELECT s.name, e.grade
+FROM enrollments e
+JOIN students s ON e.student_id = s.student_id
+WHERE e.course_id = 2;
+
+-- for getting course who enrolled a specific student we use below syntax--
+
+SELECT c.course_name, e.grade
+FROM enrollments e
+JOIN courses c ON e.course_id = c.course_id
+WHERE e.student_id = 2;
